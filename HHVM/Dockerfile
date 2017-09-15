@@ -24,8 +24,11 @@ ADD config/php.ini /etc/hhvm
 ADD config/server.ini /etc/hhvm
 RUN mkdir -p /home/rtorrent
 
+
 # Configuration for rtorrent
 ADD config/rtorrent.rc /home/rtorrent/.rtorrent.rc
+
+RUN useradd hhvm
 
 # Scripts
 ADD supervisor-config/supervisord.conf /etc/supervisor/conf.d/
