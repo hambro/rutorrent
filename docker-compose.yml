@@ -6,7 +6,7 @@ services:
     data:
         image: busybox
         volumes:
-            - /mnt/pool/TEST/:/rtorrent
+            - ./rtrorrent_dir:/rtorrent
 
 # ### ruTorrent (front end) Container #########################
 
@@ -21,6 +21,7 @@ services:
             - ./storage/logs/hhvm:/var/log/hhvm
         ports:
             - "24503:24503"
+            - "27096:27096"
         environment:
             NGINX_HOST: "nginx"
         volumes_from:
@@ -38,7 +39,7 @@ services:
         volumes:
             - ./storage/logs/nginx:/var/log/nginx
         ports:
-            - "88:80"
+            - "98:80"
         links:
             - hhvm
         volumes_from:
@@ -50,19 +51,6 @@ services:
                 aliases:
                    - nginx
 
-# ### irssi Container #########################################
-
-    irssi:
-        build: ./irssi
-        volumes:
-            - /mnt/pool/TEST/watch/:/home/user/watch:rw
-        tty: true
-        expose:
-            - "27096"
-        networks:
-            main:
-                aliases:
-                   - irssi
 
 networks:
   main:

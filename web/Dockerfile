@@ -18,15 +18,13 @@ RUN cd /var/www/app/plugins/ \
     && cd autodl-irssi \
     && mv _conf.php conf.php
 
-RUN cd /var/www/app/plugins/autodl-irssi/ \
-    && sed -i -e 's/global $autodlPort, $autodlPassword;/global $autodlPort, $autodlPassword, $autodlHost;/g' getConf.php \
-    && sed -i -e 's/"127.0.0.1"/$autodlHost/g' getConf.php \
-    && sed -i -e 's/?>/$autodlHost = "irssi";\n?>/g' conf.php \
-    && sed -i -e 's/$autodlPort = 0;/$autodlPort = 27096;/g' conf.php \
-    && sed -i -e 's/$autodlPassword = "";/$autodlPassword = "cNftAMDcgcy63G77";/g' conf.php
-
 # Rutorrent config
 ADD ./config.php /var/www/app/conf
+
+
+RUN cd /var/www/app/plugins/autodl-irssi/ \
+    && sed -i -e 's/$autodlPort = 0;/$autodlPort = 27096;/g' conf.php \
+    && sed -i -e 's/$autodlPassword = "";/$autodlPassword = "cNftAMDcgcy63G77";/g' conf.php
 
 # Password
 ADD ./.htpasswd /var/www/app
